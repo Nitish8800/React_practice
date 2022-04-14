@@ -42,19 +42,23 @@ function App() {
   return (
     <div className="App">
       <div className="App-header">
+        <h1>Select Your Hometown</h1>
+        <div>
+          <select>
+            <option disabled selected hidden>
+              Select Country
+            </option>
 
-<h1>
-  Select Your Hometown
-</h1>      
-<div>
-  <select name="" id="">
+            <option>India</option>
+          </select>
+          <select>
+            <option disabled selected hidden>
+              Select City
+            </option>
 
-
-    
-  </select>
-</div>
-
-
+            <option>Delhi</option>
+          </select>
+        </div>
       </div>
     </div>
   );
