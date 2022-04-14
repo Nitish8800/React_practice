@@ -27,6 +27,7 @@ function App() {
     setSingleCountry(country);
     const findCities = countries.find((c) => c.country === country);
     setCities(findCities.cities);
+    // console.log(findCities.cities);
   };
 
   const submitHandle = () => {
@@ -44,21 +45,44 @@ function App() {
       <div className="App-header">
         <h1>Select Your Hometown</h1>
         <div>
-          <select>
-            <option disabled selected hidden>
-              Select Country
-            </option>
+          {countries && (
+            <select
+              onChange={(e) => fetchCities(e.target.value)}
+              value={singleCountry}
+            >
+              <option selected hidden disabled>
+                Select Country
+              </option>
+              {countries.map((country) => (
+                <option key={`${country.country}`} value={country.country}>
+                  {country.country}
+                </option>
+              ))}
+            </select>
+          )}
 
-            <option>India</option>
-          </select>
-          <select>
-            <option disabled selected hidden>
-              Select City
-            </option>
-
-            <option>Delhi</option>
-          </select>
+          {cities && (
+            <select
+              onChange={(e) => setSingleCity(e.target.value)}
+              value={singleCity}
+            >
+              <option disabled selected hidden>
+                Select City
+              </option>
+              {cities.map((city) => (
+                <option value={city} key={city}>
+                  {city}
+                </option>
+              ))}
+            </select>
+          )}
+          <button onClick={submitHandle}>Go</button>
         </div>
+        {submit && (
+          <h3>
+            Your country is {singleCountry} and your city is {singleCity}
+          </h3>
+        )}
       </div>
     </div>
   );
