@@ -1,28 +1,61 @@
-import "./App.css";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
-  const [userDetails, setUserDetails] = useState(0);
+  const [countries, setCountries] = useState([]);
+  const [singleCountry, setSingleCountry] = useState("");
+  const [cities, setCities] = useState(null);
+  const [singleCity, setSingleCity] = useState("");
+  const [submit, setSubmit] = useState(false);
 
-  const user = async () => {
+  const fetchCountries = async () => {
     try {
-      const userDetail = await axios.get("https://randomuser.me/api/");
-
-      setUserDetails(userDetail.data.results[0]);
+      const country = await axios.get(
+        "https://countriesnow.space/api/v0.1/countries"
+      );
+      setCountries(country.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(userDetails);
+  const fetchCities = (country) => {
+    setSubmit(false);
+    setSingleCity(null);
+
+    setSingleCountry(country);
+    const findCities = countries.find((c) => c.country === country);
+    setCities(findCities.cities);
+  };
+
+  const submitHandle = () => {
+    if (singleCountry && singleCity) {
+      setSubmit(true);
+    }
+  };
+
   useEffect(() => {
-    user();
+    fetchCountries();
   }, []);
 
   return (
     <div className="App">
-      {userDetails && <img src={userDetails.picture.large} alt="" />}
+      <div className="App-header">
+
+<h1>
+  Select Your Hometown
+</h1>      
+<div>
+  <select name="" id="">
+
+
+    
+  </select>
+</div>
+
+
+      </div>
     </div>
   );
 }
